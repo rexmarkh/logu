@@ -1,0 +1,133 @@
+<div>
+    <button type="button" class="btn btn-primary" (click)="openModal(addEmployee)"><fa name="plus-square"></fa>Add Employee</button>
+
+</div>
+<hr>
+<div class="table-responsive" *ngIf="items?.length > 0;else noItems">
+    <table class="table table-bordered table-hover table-inverse table-responsive">
+        <thead class="">
+            <tr>
+                <th>Action</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>Aadhaar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td><button type="button" class="btn btn-primary" (click)="openModal2(editEmployee, $event, item)"><fa name="pencil-square-o"></fa></button>
+                    <ng-template #editEmployee>
+                        <div class="modal-header">
+                            <h4 class="modal-title pull-left">Edit Employee</h4>
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <div *ngIf="editState && itemToEdit.id == item.id">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Add Name" [(ngModel)]="item.name" name="name">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>Age</label>
+
+                                        <input type="text" placeholder="Add Age" [(ngModel)]="item.age" name="age">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>Gender</label>
+
+                                        <input type="text" placeholder="Add Gender" [(ngModel)]="item.gender" name="gender">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>Phone</label>
+
+                                        <input type="text" placeholder="Add Phone" [(ngModel)]="item.phone" name="phone">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>Aadhaar</label>
+
+                                        <input type="text" placeholder="Add Aadhaar" [(ngModel)]="item.aadhaar" name="aadhaar">
+                                    </div>
+
+                                    <button (click)="updateItem(item)" class="btn btn-warning">Update Item</button>
+                                    <button (click)="deleteItem($event, item)" class="btn btn-danger">Delete Item</button>
+                                    <button *ngIf="editState && itemToEdit.id == item.id" (click)="clearState()" class="btn btn-info">Clear Item</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </td>
+
+                <td scope="row">{{item.name}}</td>
+                <td>{{item.gender}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.aadhaar}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #noItems>
+    <app-loader *ngIf="showLoader"></app-loader>
+    <h5 class="getting_details">Getting Employees Details...</h5>
+</ng-template>
+
+
+
+<ng-template #addEmployee>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Employee</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" class="col s6">
+            <div class="row">
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-3 col-form-label">Name</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" placeholder="Add Name" [(ngModel)]="item.name" name="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-3 col-form-label">Phone</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" placeholder="Add Phone" [(ngModel)]="item.phone" name="phone">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-3 col-form-label">Age</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" placeholder="Add Age" [(ngModel)]="item.age" name="age">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-3 col-form-label">Gender</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" placeholder="Add Gender" [(ngModel)]="item.gender" name="gender">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-3 col-form-label">Aadhaar</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" placeholder="Add Aadhaar" [(ngModel)]="item.aadhaar" name="aadhaar">
+                    </div>
+                </div>
+            </div>
+            <div class="row submit_btn">
+                <!-- <label for="example-text-input" class="col-3 col-form-label">Aadhaar</label> -->
+                <div class="col-12">
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

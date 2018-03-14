@@ -1,0 +1,27 @@
+<app-loader *ngIf="showLoader">
+</app-loader>
+<table class="table table-{1:striped|sm|bordered|hover|inverse} table-inverse table-responsive">
+    <thead class="thead-inverse|thead-default">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Aadhaar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees | async">
+            <td scope="row">{{employee.uid}}</td>
+            <td>{{employee.name}}</td>
+            <td>{{employee.gender}}</td>
+            <td>{{employee.age}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.aadhaar}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<input [(ngModel)]="newContent">
+<button type="button" class="btn btn-primary" (click)="updateContent()">Update</button>

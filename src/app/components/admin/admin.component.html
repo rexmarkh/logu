@@ -1,0 +1,61 @@
+<!-- <app-loader *ngIf="showLoader"></app-loader> -->
+
+<div *ngIf="auth.user | async; then authenticated else guest">
+    <!-- template will replace this div -->
+</div>
+<!-- User NOT logged in -->
+<ng-template #guest>
+    <div class="login text-center">
+        <form class="form-signin">
+            <img class="mb-4" src="https://image.flaticon.com/icons/svg/236/236832.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Hello Admin</h1>
+            <p>Please Signin to continue...</p>
+
+            <button class="btn btn-lg btn-primary btn-block" (click)="auth.googleLogin()">
+                    <i class="fa fa-google"></i> Connect Google
+                </button>
+
+            <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+        </form>
+    </div>
+</ng-template>
+<!-- User logged in -->
+<ng-template #authenticated>
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="navbar-nav mr-auto flex-column">
+                    <li class="nav-item active">
+                        <a class="nav-link" routerLink="dashboard">Dashboard<span   class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="employee_management">Employee Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="attendance">Attendance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="accounts">Accounts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="reports">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-5 px-4">
+            <!-- <div class="pt-4" *ngIf="auth.user | async as user">
+                <h3>Hi, {{ user.name }}</h3>
+                <img width="30px" [src]="user.photoUrl">
+                <p>UID: {{ user.uid }}</p>
+                <button (click)="auth.signOut()">Logout</button>
+            </div> -->
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
+</ng-template>
